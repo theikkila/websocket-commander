@@ -1,0 +1,14 @@
+{
+  "name": "websocket-commander",
+  "version": "1.0.0",
+  "description": "A communication app that enables message exchange between the server and users.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Robert Valta",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
