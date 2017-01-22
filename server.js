@@ -24,7 +24,7 @@ app.get('/api/v0/:groupId/users', (req, res) => {
   })
 
   if (matchedGroup) {
-    res.json(matchedGroup)
+    res.json({online: matchedGroup.online})
   } else {
     res.status(404).send()
   }
