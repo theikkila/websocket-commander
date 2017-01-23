@@ -3,31 +3,21 @@ const app = express()
 const PORT = process.env.port || 3000
 
 // A mock to store groups to a static array
-const groups = [{
-  groupId: 1,
-  online: 5
-}, {
-  groupId: 2,
-  online: 3
-}]
+const groups = {
+  1: {online: 5},
+  2: {online: 3}
+}
 
 // GET /api/v0/:groupId/users
 // See how many group's users are online
 app.get('/api/v0/:groupId/users', (req, res) => {
   const groupId = parseInt(req.params.groupId, 10)
-  var matchedGroup
+  const hasGroup = (group) => group in groups
 
-  groups.forEach((group) => {
-    if(groupId === group.groupId) {
-      matchedGroup = group
-    }
-  })
-
-  if (matchedGroup) {
-    res.json({online: matchedGroup.online})
-  } else {
-    res.status(404).send()
+  if(!hasGroup(groupId)) {
+    res.json({online: 0})
   }
+  res.json(groups[groupId])
 })
 
 // POST /api/v0/:groupId/command
