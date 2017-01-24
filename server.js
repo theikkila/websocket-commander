@@ -53,9 +53,9 @@ app.post('/api/v0/:groupId/command', (req,res) => {
   const groupId = req.params.groupId
   const command = req.body.command
 
-  if(!hasGroup(groupId)) {
-    res.json({ack: false})
-  }
+  // if(!hasGroup(groupId)) {
+  //   return res.json({ack: false})
+  // }
 
   // Convey command message to a specified group
   io.to(groupId).emit('COMMAND', command)
