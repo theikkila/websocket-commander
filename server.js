@@ -29,7 +29,9 @@ const hasGroup = (group) => group in groups
 
 // Listen on the connection event for incoming sockets and join them a specified room.
 io.on('connection', (socket) => {
+  console.log("New connection")
   socket.on('OPEN', (msg) => {
+    console.log("OPEN received join user to group: ", msg)
     socket.join(msg)
   })
 })
