@@ -1,16 +1,15 @@
 const PORT = process.env.port || 3000
 
-const http = require('http')
-const express = require('express')
 const bodyParser = require('body-parser')
 const redis = require('redis')
 
-const app = express()
-const server = http.createServer(app)
-const io = require('socket.io').listen(server)
+const app = require('express')()
+const http = require('http').Server(app)
+const io = require('socket.io')(http)
 
 // const pub = redis.createClient()
 // const sub = redis.createClient()
+
 
 // Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}))
@@ -27,13 +26,22 @@ const groups = {
 // Returns true or false if a group belongs to groups
 const hasGroup = (group) => group in groups
 
-// Listen on the connection event for incoming sockets and join them a specified room.
+// Listen on the connection event for incoming sockets and join them to a specified room
 io.on('connection', (socket) => {
   console.log("New connection")
   socket.on('OPEN', (msg) => {
     console.log("OPEN received join user to group: ", msg)
     socket.join(msg)
   })
+
+  socket.on('COMMAND', (msg) => {
+    console.log('command received: ' + msg)
+  })
+})
+
+// Serve client website. Example index.html taken from http://socket.io/get-started/chat/
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html')
 })
 
 // GET /api/v0/:groupId/users
@@ -64,6 +72,6 @@ app.post('/api/v0/:groupId/command', (req,res) => {
 })
 
 // Uses either environment variable port or default 3000 if none declared
-server.listen(PORT, () => {
+http.listen(PORT, () => {
   console.log('Express listening on port ' + PORT + '!')
 })
