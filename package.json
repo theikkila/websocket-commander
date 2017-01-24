@@ -4,7 +4,8 @@
   "description": "A communication app that enables message exchange between the server and users.",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "client": "node testclient.js"
   },
   "author": "Robert Valta",
   "license": "ISC",
