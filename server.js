@@ -9,8 +9,8 @@ const app = express()
 const server = http.createServer(app)
 const io = require('socket.io').listen(server)
 
-const pub = redis.createClient()
-const sub = redis.createClient()
+// const pub = redis.createClient()
+// const sub = redis.createClient()
 
 // Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}))
